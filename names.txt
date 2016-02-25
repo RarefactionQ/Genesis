@@ -1,0 +1,4 @@
+"Garcia","Wang","Zhang","Li","Smith","Mueller","Gonzalez","Smirnov","Nguyen","Hernadez","Anderson","Genesis","Picard"
+"Quark","Strange","Link","Mohamed","Bo","Feng","Jie","Peng","Tao","Wei","William","Luka","Oliver","Jean-Luc","Jack","Harry","Ozymandius","Jesus","Emil","Noah","Brock","Jane","Issac","Courage","Argon","Tungsten","Wolfram","Titanium","Caesar","Kaiser","Caesium","Cobalt","Carbon","Uranium","Thorium","Lyra","Virgo","Cygnus","Scalar","String","Medium"
+"Nova","Xenon","Charm","Hana","Mary","Ai","Li","Lian","Na","Ni","Ting","Yun","Zhen","Padme","Leia","Emma","Lina","Sarah","Julie","Yasmine","Prudence","Chloe","Sophie","Jane","Angel","Terra","Nickel","Chlorine","Flourine","Urania","Thoria","Euridice","Persephone","Phoenix","Libra","Cassiopeia","Ceti","Lyr","Phota","Resonance","Polara","Scala","Wave","Ruby","Media","Nebula"
+	
