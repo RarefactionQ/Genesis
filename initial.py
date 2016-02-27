@@ -2,8 +2,50 @@ from Gene import Gene
 from Crewmate import Crewmate
 import random
 from Ship import Ship
+import csv
 
-# def starting_crew
+SOURCE_FILE_CREW = 'initial_crew.csv'
+SOURCE_FILE_GENES = 'initial_genes.csv'
+
+def import_crew():
+	genetics = import_genetics()
+	crew = []
+	for x in range(20):
+		mate = Crewmate()
+		mate.set_sex()
+		mate.set_name()
+		create_genome(mate, genetics)
+		crew.append(mate)
+	return crew
+
+def import_genetics():
+	genetics = []
+	with open(SOURCE_FILE_GENES, 'rb') as csvfile:
+	    reader = csv.reader(csvfile)
+	    for row in reader:
+	    	gene = Gene()
+	    	gene.locus = row[0]
+	    	gene.condition = row[1]
+	    	gene.condition_prob = row[2]
+	    	gene.congential = row[3]
+	    	gene.dominant = row[4]
+	    	gene.emp = row[5]
+	    	gene.int = row[6]
+	    	gene.cre = row[7]
+	    	genetics.append(gene)
+	return genetics
+
+def create_genome(crew, genetics):
+	for loc in range(len(genetics)):
+		temp = []
+		for gene in genetics:
+			if gene.locus == loc:
+				temp.append(gene)
+		if len(temp) == 0:
+			continue
+		crew.genome.append([random.choice(temp),random.choice(temp)])
+
+
 def test_crew_infant():
 	gene00 = Gene()
 	gene00.locus = 0
@@ -93,5 +135,5 @@ def test_crew_adult():
 
 def test_ship():
 	test = Ship()
-	test.crew = test_crew_adult()
+	test.crew = import_crew()
 	return test

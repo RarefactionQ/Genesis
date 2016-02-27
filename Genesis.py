@@ -25,9 +25,13 @@ def get_stats(s):
 	return stats
 
 def inspect_crew(s):
-	print "inspect_crew"
+	answer = ui.pick_list_crew(s.crew)
+	if answer == -1:
+		return
+	ui.full_info(s.crew[answer])
+
 def choose_research(s):
-	print "choose_research"
+	answer = ui.list_options([""])
 def assign_job(s):
 	print "assign_job"
 def sterilize(s):
@@ -36,6 +40,7 @@ def euthanize(s):
 	print "euthanize"
 def end_turn(s):
 	print "end_turn"
+	c = initial.import_crew()
 
 def decision_loop(s):
 	main_loop = ["Inspect Crew","Choose Research","Assign Job","Sterilize","Euthanize","End Turn"]

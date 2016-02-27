@@ -154,10 +154,10 @@ def any_uninitialized(crew):
 def test_assign_job():
 	crew = Crewmate()
 	crew.job = "Tester"
-	crew.training = True
+	# crew.training = True
 	crew.grow_one_year()
-	if crew.training == True:
-		print "test_assign_job failed"
+	# if crew.training == True:
+		# print "test_assign_job failed"
 
 # def test_sterilize():
 # def test_dying():
@@ -174,7 +174,7 @@ def test_clear():
 def test_crew_print():
 	crew = initial.test_crew_infant()
 	crew[0].job = "Researcher"
-	ui.inline_print(crew[0])
+	print ui.inline_print(crew[0])
 	ui.full_info(crew[1])
 	
 def test_fullscreen():

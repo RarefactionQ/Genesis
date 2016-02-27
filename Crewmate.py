@@ -22,13 +22,14 @@ class Crewmate(object):
 		self.sex = -1
 		self.sterile = False
 		self.job = "None"
-		self.training = False
+		# self.training = False
 		self.empathy = 0
 		self.intelligence = 0 
 		self.creativity = 0
 		self.age = 0
 		self.genome = [] #pairs of genes
 		self.traits = []
+		self.breeding = False
 
 	def get_id(self):
 		return self.crew_id
@@ -36,6 +37,9 @@ class Crewmate(object):
 	def set_parents(self,D=None,M=None):
 		self.dad = D
 		self.mom = M
+		if D == None and M == None:
+			self.dad = type('X', (object,), dict(name="Lost to the ages",crew_id=-1))
+			self.mom = type('X', (object,), dict(name="Lost to the ages",crew_id=-1))
 
 	def set_sex(self,value=None):
 		if value is None:
@@ -72,7 +76,7 @@ class Crewmate(object):
 			self.sterile = True
 		if self.sex == 0 and self.age == 65:
 			self.sterile = True
-		self.training = False
+		# self.training = False
 
 	def become_adult(self):
 		print self.name+" crew id:"+str(self.crew_id)+" has become an adult"

@@ -15,7 +15,7 @@ def acknowledge():
 
 def inline_print(crew):
 	term = Terminal()
-	print "ID: "+str(crew.crew_id)+" \""+crew.name+"\", Age: "+str(crew.age)+", Job: "+color_code(crew.job)+"("+term.red(str(crew.empathy))+", "+term.blue(str(crew.intelligence))+", "+term.yellow(str(crew.creativity))+")"
+	return "ID: "+str(crew.crew_id)+" \""+crew.name+"\", Age: "+str(crew.age)+", Job: "+color_code(crew.job)+"("+term.red(str(crew.empathy))+", "+term.blue(str(crew.intelligence))+", "+term.yellow(str(crew.creativity))+")"
 
 def full_info(crew):
 	term = Terminal()
@@ -25,7 +25,7 @@ def full_info(crew):
 	print "Adult: "+str(crew.adult)
 	print "Sex: "+str(crew.sex)
 	print "Job: "+color_code(crew.job)
-	print "Dad: "+str(crew.dad.name)+", Mom: "+str(crew.mom.name)
+	print "Dad: \""+str(crew.dad.name)+"\", Mom: \""+str(crew.mom.name)+"\""
 	print "Full Genome: "
 	for gene in crew.genome:
 		print str(gene[0].locus)+": "+str(gene[0].condition)+", "+str(gene[1].condition)
@@ -33,13 +33,13 @@ def full_info(crew):
 def color_code(job):
 	term = Terminal()
 	if job == "Doctor":
-		return term.purple("Doctor")
+		return term.magenta("Doctor")
 	elif job == "Engineer":
 		return term.blue("Engineer")
 	elif job == "Researcher":
 		return term.green("Researcher")
 	elif job == "Artist":
-		return term.orange("Artist")
+		return term.cyan("Artist")
 	else:
 		return job
 
