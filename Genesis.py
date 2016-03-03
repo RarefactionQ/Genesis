@@ -1,30 +1,30 @@
 import sys
 
-import initial
-import ui
+import Initial
+import UI
 
 
 def main():
-    genesis = initial.test_ship()
+    genesis = Initial.test_ship()
     while not (lose(genesis) or win(genesis)):
     # while True:
         decision_loop(genesis)
 
 def inspect_crew(s):
-    answer = ui.pick_list_crew(s.crew)
+    answer = UI.pick_list_crew(s.crew)
     if answer == -1:
         return
-    ui.full_info(s.crew[answer])
+    UI.full_info(s.crew[answer])
 
 def choose_research(s):
-    answer = ui.list_options(["Health", "Safety", "Art", "Research", "Engine"])
+    answer = UI.list_options(["Health", "Safety", "Art", "Research", "Engine"])
     s.priority = answer
 
 def assign_job(s):
-    mate = ui.pick_list_crew(s.crew)
+    mate = UI.pick_list_crew(s.crew)
     if mate == -1:
         return
-    answer = ui.list_options([ui.color_code("Doctor"), ui.color_code("Engineer"), ui.color_code("Researcher"), ui.color_code("Artist"), ui.color_code("Laborer")], ui.inline_print(s.crew[mate]))
+    answer = UI.list_options([UI.color_code("Doctor"), UI.color_code("Engineer"), UI.color_code("Researcher"), UI.color_code("Artist"), UI.color_code("Laborer")], UI.inline_print(s.crew[mate]))
     if answer == 0:
         s.crew[mate].job = "Doctor"
     elif answer == 1:
@@ -36,13 +36,13 @@ def assign_job(s):
     elif answer == 4:
         s.crew[mate].job = "Laborer"
 def sterilize(s):
-    answer = ui.pick_list_crew(s.crew)
+    answer = UI.pick_list_crew(s.crew)
     if answer == -1:
         return
     s.crew[answer].sterile = True
     s.happiness_penalty += 50
 def euthanize(s):
-    answer = ui.pick_list_crew(s.crew)
+    answer = UI.pick_list_crew(s.crew)
     if answer == -1:
         return
     s.crew[answer].alive = False
@@ -51,11 +51,11 @@ def euthanize(s):
 
 def end_turn(s):
     s.pass_turn()
-    ui.acknowledge()
+    UI.acknowledge()
 
 def decision_loop(s):
     main_loop = ["Inspect Crew", "Choose Research", "Assign Job", "Sterilize", "Euthanize", "End Turn"]
-    answer = ui.list_options(main_loop, header=ui.get_stats(s))
+    answer = UI.list_options(main_loop, header=UI.get_stats(s))
     if answer == 0:
         inspect_crew(s)
     elif answer == 1:
@@ -68,7 +68,7 @@ def decision_loop(s):
         euthanize(s)
     elif answer == 5:
         end_turn(s)
-    ui.acknowledge()
+    UI.acknowledge()
 
 def win(s):
     if s.distance <= 0:

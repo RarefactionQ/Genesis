@@ -1,7 +1,7 @@
 import random
 
 from Crewmate import Crewmate
-import ui
+import UI
 
 class Ship(object):
 
@@ -80,7 +80,7 @@ class Ship(object):
         if random.random() * (mate.age/20) > self.healthiness:
             mate.alive = False
             self.crew.remove(mate)
-            print ui.inline_print(mate)+" has died at age "+str(mate.age)
+            print UI.inline_print(mate)+" has died at age "+str(mate.age)
 
     def breed(self, mate):
         if mate.sterile or mate.breeding or mate.adult != True:
@@ -108,7 +108,7 @@ class Ship(object):
                 else:
                     baby.be_born(partner, mate)
                 self.crew.append(baby)
-                print ui.inline_print(baby)+" has been born."
+                print UI.inline_print(baby)+" has been born."
                 print "Their parents are "+mate.name+" and "+partner.name
                 return
 
