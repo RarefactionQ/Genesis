@@ -1,6 +1,7 @@
 import os
 
 from blessings import Terminal
+from Jobs import Jobs
 
 term = Terminal()
 
@@ -47,19 +48,25 @@ def full_info(crew):
     # for gene in crew.genome:
     #     print str(gene[0].locus)+": "+str(gene[0].condition)+", "+str(gene[1].condition)
 
-def color_code(job):
-    if job == "Doctor":
-        return term.magenta("Doctor")
-    elif job == "Engineer":
-        return term.blue("Engineer")
-    elif job == "Researcher":
-        return term.green("Researcher")
-    elif job == "Artist":
-        return term.cyan("Artist")
-    elif job == "Laborer":
-        return term.red_on_green("Laborer")
+def job_color(job):
+    if job == Jobs.Doctor:
+        return term.magenta
+    elif job == Jobs.Engineer:
+        return term.blue
+    elif job == Jobs.Researcher:
+        return term.green
+    elif job == Jobs.Artist:
+        return term.cyan
+    elif job == Jobs.Laborer:
+        return term.red_on_green
     else:
-        return job
+        return lambda x: x
+
+def color_code(job):
+    return job_color(job)(job)
+
+def pretty_job(member):
+    return job_color(member)(member.job)
 
 def pick_list_crew(crew):
     # clear()
@@ -89,7 +96,7 @@ def pick_list_crew(crew):
             s += " Age: "+str(member.age)+","
             for _ in range(fields[2] - len(str(member.age))):
                 s += " "
-            s += " Job: "+color_code(member.job)
+            s += " Job: "+(member.job)
             for _ in range(fields[3] - len(str(member.job))):
                 s += " "
             s += " ("+term.red(str(member.empathy))+", "+term.blue(str(member.intelligence))+", "+term.yellow(str(member.creativity))+")"
