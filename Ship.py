@@ -2,7 +2,7 @@ from Crewmate import Crewmate
 import random
 import ui
 
-class Ship:
+class Ship(object):
 
 	def __init__(self):
 		self.crew = []

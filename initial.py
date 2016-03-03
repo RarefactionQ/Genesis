@@ -12,7 +12,7 @@ def import_crew():
 	temp = Ship()
 	genetics = import_genetics()
 	seed = []
-	for x in range(100):
+	for _ in range(100):
 		mate = Crewmate()
 		mate.set_sex()
 		mate.set_name()

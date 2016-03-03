@@ -1,6 +1,5 @@
 import os
 from blessings import Terminal
-from Crewmate import Crewmate
 
 def enter_full():
 	term = Terminal()
@@ -10,7 +9,7 @@ def clear():
 	os.system('cls' if os.name == 'nt' else 'clear')
 
 def acknowledge():
-	var = raw_input("Hit Return to Continue.")
+	raw_input("Hit Return to Continue.")
 
 
 def inline_print(crew):
@@ -73,16 +72,16 @@ def pick_list_crew(crew):
 			s = ""
 			s+=str(i)+": "
 			s+= "ID: "+str(member.crew_id)
-			for x in range(fields[0] - len(str(member.crew_id))):
+			for _ in range(fields[0] - len(str(member.crew_id))):
 				s+=" "
 			s+=" \""+member.name+"\","
-			for x in range(fields[1] - len(member.name)):
+			for _ in range(fields[1] - len(member.name)):
 				s+=" "
 			s+=" Age: "+str(member.age)+","
-			for x in range(fields[2] - len(str(member.age))):
+			for _ in range(fields[2] - len(str(member.age))):
 				s+=" "
 			s+= " Job: "+color_code(member.job)
-			for x in range(fields[3] - len(str(member.job))):
+			for _ in range(fields[3] - len(str(member.job))):
 				s+=" "
 			s+=" ("+term.red(str(member.empathy))+", "+term.blue(str(member.intelligence))+", "+term.yellow(str(member.creativity))+")"
 			print s
@@ -92,7 +91,6 @@ def pick_list_crew(crew):
 	return int(answer)-1
 
 def list_options(options,header=None):
-	term = Terminal()
 	answer = -1
 	while not (str(answer).isdigit() and ((int(answer) > -1) and (int(answer) < len(options)))):
 		clear()

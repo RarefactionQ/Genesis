@@ -4,10 +4,7 @@ from Gene import Gene
 class Crewmate(object):
 	@staticmethod
 	def same_crewmate(a,b):
-		if a.get_id() == b.get_id():
-			return True
-		else:
-			return False
+		return a.get_id() == b.get_id()
 
 	id_counter = 0
 	def __init__(self):

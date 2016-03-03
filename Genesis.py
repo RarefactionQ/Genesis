@@ -1,5 +1,3 @@
-from Ship import Ship
-from Crewmate import Crewmate
 import ui
 import initial
 import sys
