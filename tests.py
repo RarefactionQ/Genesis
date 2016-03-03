@@ -1,8 +1,8 @@
 from Crewmate import Crewmate
 from Gene import Gene
 import initial
-import ui
 from Ship import Ship
+import ui
 
 def test_crew_id_increment():
     crew1 = Crewmate()
@@ -16,10 +16,10 @@ def test_set_parents():
     crew1 = Crewmate()
     crew2 = Crewmate()
     crew3 = Crewmate()
-    crew3.set_parents(crew1,crew2)
-    if not Crewmate.same_crewmate(crew3.dad, crew1):
+    crew3.set_parents(crew1, crew2)
+    if crew3.dad != crew1:
         print "Error, not the right dad"
-    if not Crewmate.same_crewmate(crew3.mom, crew2):
+    if crew3.mom != crew2:
         print "Error, not the right mom"
 
 def test_get_set_attributes():
@@ -70,7 +70,7 @@ def test_naming():
     crew2 = Crewmate()
     crew3 = Crewmate()
 
-    crew1.set_name("foo","bar") #remember, first name is last, last name is first
+    crew1.set_name("foo", "bar") #remember, first name is last, last name is first
     if crew1.name != "bar foo":
         print "Error, name isn't being correctly set manually"
         print crew1.name+" should be bar foo"
@@ -95,7 +95,7 @@ def test_dominance():
     gene2.condition = "dom"
     gene2.dominant = True
     # Gene.get_dominant(gene1)
-    pair = [gene1,gene2]
+    pair = [gene1, gene2]
     if Gene.get_dominant(pair).condition != "dom":
         print "Error, dominant gene isn't working"
 
@@ -126,10 +126,10 @@ def test_gamete_generation():
 def test_inheriting_genome():
     crew = initial.test_crew_adult()
     child = Crewmate()
-    child.set_parents(crew[0],crew[1])
+    child.set_parents(crew[0], crew[1])
     var0 = False
     var1 = False
-    for x in range(0,10):
+    for _ in range(10):
         child.inherit()
         for gene in child.genome[0]:
             if gene.condition == "00":
@@ -143,13 +143,13 @@ def test_generate_child():
     crew = initial.test_crew_infant()
     # child = Crewmate()
     baby = Crewmate()
-    baby.be_born(crew[0],crew[1])
+    baby.be_born(crew[0], crew[1])
     # ui.full_info(baby)
     if any_uninitialized(baby):
         print "test_generate_child failed"
 
 def any_uninitialized(crew):
-    return crew.name == "Unnamed" or crew.dad == None or crew.mom == None or crew.sex == -1
+    return crew.name == "Unnamed" or crew.dad is None or crew.mom is None or crew.sex == -1
 
 def test_assign_job():
     crew = Crewmate()
@@ -185,15 +185,15 @@ def test_acknowledge():
 
 def test_crew_pick():
     crew = initial.test_crew_infant()
-    a = ui.pick_list_crew(crew)
+    ui.pick_list_crew(crew)
 
 def test_option_pick():
-    options = ["Back","First","Second","Third"]
+    options = ["Back", "First", "Second", "Third"]
     answer = ui.list_options(options)
     print options[answer]
 
 def test_ship_constructor():
-    ss_test = Ship()
+    Ship()
 
 def test_ship_compute():
     ss_test = Ship()

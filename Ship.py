@@ -1,5 +1,6 @@
-from Crewmate import Crewmate
 import random
+
+from Crewmate import Crewmate
 import ui
 
 class Ship(object):
@@ -17,7 +18,7 @@ class Ship(object):
         self.speed = -1
         self.distance = -1
         self.priority = -1
-        self.research = [-1.0,-1.0,-1.0,-1.0,-1.0] #health,safety,art,research,engine
+        self.research = [-1.0, -1.0, -1.0, -1.0, -1.0] # health, safety, art, research, engine
         self.happiness_penalty = -1
 
 
@@ -75,37 +76,37 @@ class Ship(object):
                 sum_research += temp * self.research[3] * self.current_satisfaction
         return sum_research
 
-    def kill(self,mate):
-        if random.random() * (mate.age/20) > self.healthiness :
+    def kill(self, mate):
+        if random.random() * (mate.age/20) > self.healthiness:
             mate.alive = False
             self.crew.remove(mate)
             print ui.inline_print(mate)+" has died at age "+str(mate.age)
 
-    def breed(self,mate):
+    def breed(self, mate):
         if mate.sterile or mate.breeding or mate.adult != True:
             return
         for partner in self.crew:
-            if partner.sterile or partner.breeding or partner.adult != True: #no sterile or pregnant partners
+            if partner.sterile or partner.breeding or partner.adult != True: # no sterile or pregnant partners
                 continue
             if partner.sex == mate.sex:
                 continue
-            if partner.crew_id == mate.mom.crew_id or partner.crew_id == mate.dad.crew_id: #no fathers or mothers
+            if partner.crew_id == mate.mom.crew_id or partner.crew_id == mate.dad.crew_id: # no fathers or mothers
                 continue
             if mate.crew_id == partner.mom.crew_id or mate.crew_id == partner.dad.crew_id:
                 continue
             prob = .006
-            if mate.dad.crew_id == partner.dad.crew_id and mate.dad.crew_id!= -1: #half siblings and full siblings
+            if mate.dad.crew_id == partner.dad.crew_id and mate.dad.crew_id != -1: # half siblings and full siblings
                 prob *= .01
-            if mate.mom.crew_id == partner.mom.crew_id and mate.dad.crew_id!= -1:
+            if mate.mom.crew_id == partner.mom.crew_id and mate.dad.crew_id != -1:
                 prob *= .01
             if random.random() < prob:
                 baby = Crewmate()
                 mate.breeding = True
                 partner.breeding = True
                 if mate.sex == 0:
-                    baby.be_born(mate,partner)
+                    baby.be_born(mate, partner)
                 else:
-                    baby.be_born(partner,mate)
+                    baby.be_born(partner, mate)
                 self.crew.append(baby)
                 print ui.inline_print(baby)+" has been born."
                 print "Their parents are "+mate.name+" and "+partner.name

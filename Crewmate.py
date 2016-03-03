@@ -1,11 +1,9 @@
 import csv
 import random
-from Gene import Gene
-class Crewmate(object):
-    @staticmethod
-    def same_crewmate(a,b):
-        return a.get_id() == b.get_id()
 
+from Gene import Gene
+
+class Crewmate(object):
     id_counter = 0
     def __init__(self):
         self.crew_id = Crewmate.id_counter
@@ -28,33 +26,40 @@ class Crewmate(object):
         self.traits = []
         self.breeding = False
 
+    def __cmp__(self, other):
+        return cmp(self.get_id(), other.get_id())
+
+    def __hash__(self):
+        return hash(self.get_id())
+
     def get_id(self):
         return self.crew_id
 
-    def set_parents(self,D=None,M=None):
-        self.dad = D
-        self.mom = M
-        if D == None and M == None:
-            self.dad = type('X', (object,), dict(name="Lost to the ages",crew_id=-1000*random.random())) #Hack to let them breed
-            self.mom = type('X', (object,), dict(name="Lost to the ages",crew_id=-1000*random.random()))
+    def set_parents(self, dad=None, mom=None):
+        # Hack to let them breed
+        if dad is None:
+            dad = type('X', (object,), dict(name="Lost to the ages", crew_id=-1000*random.random()))
+        if mom is None:
+            mom = type('X', (object,), dict(name="Lost to the ages", crew_id=-1000*random.random()))
+        self.dad = dad
+        self.mom = mom
 
-    def set_sex(self,value=None):
+    def set_sex(self, value=None):
         if value is None:
-            self.sex = random.choice([0,1])
-        else:
-            self.sex = value
+            value = random.choice([0, 1])
+        self.sex = value
 
-    def set_name(self,last=None,first=None):
-        Name_File = "names.txt"
-        if last == None or first == None:
-            with open(Name_File, 'r') as f:
+    def set_name(self, last=None, first=None):
+        name_file = "names.txt"
+        if last is None or first is None:
+            with open(name_file, 'r') as f:
                 reader = csv.reader(f)
                 last_names = reader.next()
                 boys_names = reader.next()
                 girls_names = reader.next()
-                if last == None:
+                if last is None:
                     last = random.choice(last_names)
-                if first == None:
+                if first is None:
                     if self.sex == -1:
                         print "Tried to name while sex isn't set!"
                         return
@@ -76,7 +81,7 @@ class Crewmate(object):
         # self.training = False
 
     def become_adult(self):
-        print self.name+" crew id:"+str(self.crew_id)+" has become an adult"
+        print self.name + " crew id:" + str(self.crew_id) + " has become an adult"
         self.adult = True
         for gene in self.genome:
             Gene.get_dominant(gene).adult_effects(self)
@@ -90,11 +95,11 @@ class Crewmate(object):
     def inherit(self):
         gamete1 = self.dad.get_gamete()
         gamete2 = self.mom.get_gamete()
-        self.genome = zip(gamete1,gamete2)
+        self.genome = zip(gamete1, gamete2)
 
-    def be_born(self,D=None,M=None):
-        self.set_parents(D,M)
-        last_name = M.name.split(' ')[1]
+    def be_born(self, dad=None, mom=None):
+        self.set_parents(dad, mom)
+        last_name = mom.name.split(' ')[1]
         self.set_sex()
         self.set_name(last_name)
         self.inherit()

@@ -1,7 +1,9 @@
-import ui
-import initial
 import sys
+
 from blessings import Terminal
+import initial
+import ui
+
 
 def main():
     genesis = initial.test_ship()
@@ -30,8 +32,9 @@ def inspect_crew(s):
     ui.full_info(s.crew[answer])
 
 def choose_research(s):
-    answer = ui.list_options(["Health","Safety","Art","Research","Engine"])
+    answer = ui.list_options(["Health", "Safety", "Art", "Research", "Engine"])
     s.priority = answer
+
 def assign_job(s):
     mate = ui.pick_list_crew(s.crew)
     if mate == -1:
@@ -66,8 +69,8 @@ def end_turn(s):
     ui.acknowledge()
 
 def decision_loop(s):
-    main_loop = ["Inspect Crew","Choose Research","Assign Job","Sterilize","Euthanize","End Turn"]
-    answer = ui.list_options(main_loop,get_stats(s))
+    main_loop = ["Inspect Crew", "Choose Research", "Assign Job", "Sterilize", "Euthanize", "End Turn"]
+    answer = ui.list_options(main_loop, get_stats(s))
     if answer == 0:
         inspect_crew(s)
     elif answer == 1:

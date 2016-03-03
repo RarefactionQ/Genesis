@@ -1,4 +1,5 @@
 import os
+
 from blessings import Terminal
 
 def enter_full():
@@ -52,7 +53,7 @@ def color_code(job):
 def pick_list_crew(crew):
     term = Terminal()
     # clear()
-    fields = [0,0,0,0]
+    fields = [0, 0, 0, 0]
     for member in crew:
         if len(str(member.crew_id)) > fields[0]:
             fields[0] = len(str(member.crew_id))
@@ -68,38 +69,38 @@ def pick_list_crew(crew):
         print "0: Back"
         i = 0
         for member in crew:
-            i+=1
+            i += 1
             s = ""
-            s+=str(i)+": "
-            s+= "ID: "+str(member.crew_id)
+            s += str(i)+": "
+            s += "ID: "+str(member.crew_id)
             for _ in range(fields[0] - len(str(member.crew_id))):
-                s+=" "
-            s+=" \""+member.name+"\","
+                s += " "
+            s += " \""+member.name+"\","
             for _ in range(fields[1] - len(member.name)):
-                s+=" "
-            s+=" Age: "+str(member.age)+","
+                s += " "
+            s += " Age: "+str(member.age)+","
             for _ in range(fields[2] - len(str(member.age))):
-                s+=" "
-            s+= " Job: "+color_code(member.job)
+                s += " "
+            s += " Job: "+color_code(member.job)
             for _ in range(fields[3] - len(str(member.job))):
-                s+=" "
-            s+=" ("+term.red(str(member.empathy))+", "+term.blue(str(member.intelligence))+", "+term.yellow(str(member.creativity))+")"
+                s += " "
+            s += " ("+term.red(str(member.empathy))+", "+term.blue(str(member.intelligence))+", "+term.yellow(str(member.creativity))+")"
             print s
         print "Please enter the number of the Crewmate to select them. Or 0 for back."
         answer = raw_input()
 
     return int(answer)-1
 
-def list_options(options,header=None):
+def list_options(options, header=None):
     answer = -1
     while not (str(answer).isdigit() and ((int(answer) > -1) and (int(answer) < len(options)))):
         clear()
-        if header != None:
+        if header is not None:
             print header
         i = 0
         for option in options:
             print str(i)+": "+option
-            i+=1
+            i += 1
 
         answer = raw_input("Please enter the number of the option you wish to select.")
     return int(answer)

@@ -1,9 +1,10 @@
+import csv
+import random
+import sys
+
 from Gene import Gene
 from Crewmate import Crewmate
-import random
 from Ship import Ship
-import csv
-import sys
 
 SOURCE_FILE_CREW = 'initial_crew.csv'
 SOURCE_FILE_GENES = 'initial_genes.csv'
@@ -48,19 +49,19 @@ def import_genetics():
             gene.int = row[6]
             gene.cre = row[7]
             genetics.append(gene)
-    if genetics == None or len(genetics) == 0:
+    if genetics is None or len(genetics) == 0:
         sys.exit(0)
     return genetics
 
 def create_genome(crew, genetics):
-    for loc in range(0,len(genetics)):
+    for loc in range(len(genetics)):
         temp = []
         for gene in genetics:
             if int(gene.locus) == int(loc):
                 temp.append(gene)
         if len(temp) == 0:
             continue
-        crew.genome.append([random.choice(temp),random.choice(temp)])
+        crew.genome.append([random.choice(temp), random.choice(temp)])
 
 
 
@@ -87,13 +88,13 @@ def test_crew_infant():
 
     crew1 = Crewmate()
     crew1.set_sex()
-    crew1.set_name("01","crew")
-    crew1.genome.append([gene00,gene01])
+    crew1.set_name("01", "crew")
+    crew1.genome.append([gene00, gene01])
 
     crew2 = Crewmate()
     crew2.set_sex()
-    crew2.set_name("02","crew")
-    crew2.genome.append([gene01,gene01])
+    crew2.set_name("02", "crew")
+    crew2.genome.append([gene01, gene01])
 
     crew1.mom = Crewmate()
     crew1.mom.name = "mom"
@@ -105,7 +106,7 @@ def test_crew_infant():
     crew2.dad = Crewmate()
     crew2.dad.name = "dad"
 
-    return [crew1,crew2]
+    return [crew1, crew2]
 
 def test_crew_adult():
 
@@ -113,8 +114,8 @@ def test_crew_adult():
     gene00.locus = 0
     gene00.condition = "00"
     gene00.condition_prob = 1
-    gene00.congential = 1 #Congential = 0, Adult = 1
-    gene00.dominant = True #Genes are either recessive or dominant. We Mendel for now
+    gene00.congential = 1 # Congential = 0, Adult = 1
+    gene00.dominant = True # Genes are either recessive or dominant. We Mendel for now
     gene00.emp = 1
     gene00.int = 1
     gene00.cre = 1
@@ -131,13 +132,13 @@ def test_crew_adult():
 
     crew1 = Crewmate()
     crew1.set_sex()
-    crew1.set_name("01","crew")
-    crew1.genome.append([gene00,gene01])
+    crew1.set_name("01", "crew")
+    crew1.genome.append([gene00, gene01])
 
     crew2 = Crewmate()
     crew2.set_sex()
-    crew2.set_name("02","crew")
-    crew2.genome.append([gene01,gene01])
+    crew2.set_name("02", "crew")
+    crew2.genome.append([gene01, gene01])
 
     crew1.mom = Crewmate()
     crew1.mom.name = "mom"
@@ -149,14 +150,14 @@ def test_crew_adult():
     crew2.dad = Crewmate()
     crew2.dad.name = "dad"
 
-    return [crew1,crew2]
+    return [crew1, crew2]
 
 def test_ship():
     test = Ship()
     test.crew = import_crew()
     test.current_satisfaction = .5
     test.priority = 0
-    test.research = [1.0,1.0,1.0,1.0,1.0] #health,safety,art,research,engine
+    test.research = [1.0, 1.0, 1.0, 1.0, 1.0] #health, safety, art, research, engine
     test.speed = .01
     test.distance = 50.0
     test.mission_year = 1000
