@@ -129,6 +129,8 @@ class Ship(object):
             mate.grow_one_year()
             self.kill(mate)
             self.breed(mate)
+        for mate in self.crew:
+            mate.breeding = False
         self.fuel -= self.total_consumption
         if self.safety < random.random():
             print "Core Overheated. Fuel vented"
