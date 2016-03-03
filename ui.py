@@ -2,8 +2,9 @@ import os
 
 from blessings import Terminal
 
+term = Terminal()
+
 def enter_full():
-    term = Terminal()
     print term.enter_fullscreen
 
 def clear():
@@ -13,12 +14,23 @@ def acknowledge():
     raw_input("Hit Return to Continue.")
 
 
+def get_stats(s):
+    stats = ""
+    s.compute_all()
+    stats += term.bold("Mission Year: "+str(s.mission_year)+"\n")
+    stats += "Healthiness: "+term.magenta(str(s.healthiness))+", "
+    stats += "Satisfaction: "+term.cyan(str(s.current_satisfaction))+", "
+    stats += "Safety: "+term.blue(str(s.safety))+", "
+    stats += "Projected Research: "+term.green(str(s.get_research_credits()))+", "
+    stats += "Projected Satisfaction: "+term.cyan(str(s.satisfaction))+", "
+    stats += "\nEnergy Use: "+str(s.total_consumption)+" Remaining Fuel: "+str(s.fuel)+", "
+    stats += "Speed: "+str(s.speed)+" Distance: "+str(s.distance)
+    return stats
+
 def inline_print(crew):
-    term = Terminal()
     return "ID: "+str(crew.crew_id)+" \""+crew.name+"\", Age: "+str(crew.age)+", Job: "+color_code(crew.job)+"("+term.red(str(crew.empathy))+", "+term.blue(str(crew.intelligence))+", "+term.yellow(str(crew.creativity))+")"
 
 def full_info(crew):
-    term = Terminal()
     print "Name: \""+crew.name+"\" id #:"+str(crew.crew_id)
     print term.red("Empathy: "+str(crew.empathy))+","+term.blue(" Intelligence: "+str(crew.intelligence))+","+term.yellow(" Creativity: "+str(crew.creativity))
     print "Age: "+str(crew.age)
@@ -36,7 +48,6 @@ def full_info(crew):
     #     print str(gene[0].locus)+": "+str(gene[0].condition)+", "+str(gene[1].condition)
 
 def color_code(job):
-    term = Terminal()
     if job == "Doctor":
         return term.magenta("Doctor")
     elif job == "Engineer":
@@ -51,7 +62,6 @@ def color_code(job):
         return job
 
 def pick_list_crew(crew):
-    term = Terminal()
     # clear()
     fields = [0, 0, 0, 0]
     for member in crew:

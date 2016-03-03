@@ -1,6 +1,5 @@
 import sys
 
-from blessings import Terminal
 import initial
 import ui
 
@@ -10,20 +9,6 @@ def main():
     while not (lose(genesis) or win(genesis)):
     # while True:
         decision_loop(genesis)
-
-def get_stats(s):
-    term = Terminal()
-    stats = ""
-    s.compute_all()
-    stats += term.bold("Mission Year: "+str(s.mission_year)+"\n")
-    stats += "Healthiness: "+term.magenta(str(s.healthiness))+", "
-    stats += "Satisfaction: "+term.cyan(str(s.current_satisfaction))+", "
-    stats += "Safety: "+term.blue(str(s.safety))+", "
-    stats += "Projected Research: "+term.green(str(s.get_research_credits()))+", "
-    stats += "Projected Satisfaction: "+term.cyan(str(s.satisfaction))+", "
-    stats += "\nEnergy Use: "+str(s.total_consumption)+" Remaining Fuel: "+str(s.fuel)+", "
-    stats += "Speed: "+str(s.speed)+" Distance: "+str(s.distance)
-    return stats
 
 def inspect_crew(s):
     answer = ui.pick_list_crew(s.crew)
@@ -70,7 +55,7 @@ def end_turn(s):
 
 def decision_loop(s):
     main_loop = ["Inspect Crew", "Choose Research", "Assign Job", "Sterilize", "Euthanize", "End Turn"]
-    answer = ui.list_options(main_loop, get_stats(s))
+    answer = ui.list_options(main_loop, header=ui.get_stats(s))
     if answer == 0:
         inspect_crew(s)
     elif answer == 1:
