@@ -26,9 +26,14 @@ def full_info(crew):
 	print "Sex: "+str(crew.sex)
 	print "Job: "+color_code(crew.job)
 	print "Dad: \""+str(crew.dad.name)+"\", Mom: \""+str(crew.mom.name)+"\""
-	print "Full Genome: "
-	for gene in crew.genome:
-		print str(gene[0].locus)+": "+str(gene[0].condition)+", "+str(gene[1].condition)
+	traits_str = ""
+	for trait in crew.traits:
+		if trait:
+			traits_str += trait+", "
+	print "Traits: "+traits_str
+	# print "Full Genome: "
+	# for gene in crew.genome:
+	# 	print str(gene[0].locus)+": "+str(gene[0].condition)+", "+str(gene[1].condition)
 
 def color_code(job):
 	term = Terminal()
@@ -40,6 +45,8 @@ def color_code(job):
 		return term.green("Researcher")
 	elif job == "Artist":
 		return term.cyan("Artist")
+	elif job == "Laborer":
+		return term.red_on_green("Laborer")
 	else:
 		return job
 

@@ -38,8 +38,8 @@ class Crewmate(object):
 		self.dad = D
 		self.mom = M
 		if D == None and M == None:
-			self.dad = type('X', (object,), dict(name="Lost to the ages",crew_id=-1))
-			self.mom = type('X', (object,), dict(name="Lost to the ages",crew_id=-1))
+			self.dad = type('X', (object,), dict(name="Lost to the ages",crew_id=-1000*random.random())) #Hack to let them breed
+			self.mom = type('X', (object,), dict(name="Lost to the ages",crew_id=-1000*random.random()))
 
 	def set_sex(self,value=None):
 		if value is None:
@@ -97,7 +97,7 @@ class Crewmate(object):
 
 	def be_born(self,D=None,M=None):
 		self.set_parents(D,M)
-		last_name = M.name.split(' ')[0]
+		last_name = M.name.split(' ')[1]
 		self.set_sex()
 		self.set_name(last_name)
 		self.inherit()

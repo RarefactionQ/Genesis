@@ -35,22 +35,23 @@ class Gene(object):
 		if self.improper_gene():
 			print "Tried to use an improper gene on a baby"
 			return
-		if self.congential != 0:
+		if int(self.congential) != 0:
 			return
 		if random.random() < self.condition_prob:
 			baby.traits.append(self.condition)
-			baby.empathy += self.emp
-			baby.intelligence += self.int
-			baby.creativity += self.cre
+			baby.empathy += int(self.emp)
+			baby.intelligence += int(self.int)
+			baby.creativity += int(self.cre)
 
 	def adult_effects(self,adult):
+		print "tried to adult_effects "+str(self.congential)
 		if self.improper_gene():
 			print "Tried to use an improper gene on a new adult"
 			return
-		if self.congential != 1:
+		if int(self.congential) != 1:
 			return
 		if random.random() < self.condition_prob:
 			adult.traits.append(self.condition)
-			adult.empathy += self.emp
-			adult.intelligence += self.int
-			adult.creativity += self.cre
+			adult.empathy += int(self.emp)
+			adult.intelligence += int(self.int)
+			adult.creativity += int(self.cre)

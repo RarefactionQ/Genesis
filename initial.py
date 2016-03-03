@@ -3,20 +3,33 @@ from Crewmate import Crewmate
 import random
 from Ship import Ship
 import csv
+import sys
 
 SOURCE_FILE_CREW = 'initial_crew.csv'
 SOURCE_FILE_GENES = 'initial_genes.csv'
 
 def import_crew():
+	temp = Ship()
 	genetics = import_genetics()
-	crew = []
-	for x in range(20):
+	seed = []
+	for x in range(100):
 		mate = Crewmate()
 		mate.set_sex()
 		mate.set_name()
+		mate.adult = True
 		create_genome(mate, genetics)
-		crew.append(mate)
-	return crew
+		seed.append(mate)
+	temp.crew = seed
+	# while len(temp.crew) < 101:
+	# 	temp.breed_all()
+	# 	print "breeding"
+	temp.breed_all()
+	del temp.crew[0:100]
+	for mate in temp.crew:
+		mate.age = int(20*random.random()) + 15
+		mate.become_adult()
+
+	return temp.crew
 
 def import_genetics():
 	genetics = []
@@ -27,23 +40,28 @@ def import_genetics():
 	    	gene.locus = row[0]
 	    	gene.condition = row[1]
 	    	gene.condition_prob = row[2]
-	    	gene.congential = row[3]
+	    	print str(gene.condition_prob)+" prob"
+	    	gene.congential = row[3].strip()
+	    	print str(gene.congential)+" congential"
 	    	gene.dominant = row[4]
 	    	gene.emp = row[5]
 	    	gene.int = row[6]
 	    	gene.cre = row[7]
 	    	genetics.append(gene)
+	if genetics == None or len(genetics) == 0:
+		sys.exit(0)
 	return genetics
 
 def create_genome(crew, genetics):
-	for loc in range(len(genetics)):
+	for loc in range(0,len(genetics)):
 		temp = []
 		for gene in genetics:
-			if gene.locus == loc:
+			if int(gene.locus) == int(loc):
 				temp.append(gene)
 		if len(temp) == 0:
 			continue
 		crew.genome.append([random.choice(temp),random.choice(temp)])
+
 
 
 def test_crew_infant():
@@ -136,4 +154,11 @@ def test_crew_adult():
 def test_ship():
 	test = Ship()
 	test.crew = import_crew()
+	test.current_satisfaction = .5
+	test.priority = 0
+	test.research = [1.0,1.0,1.0,1.0,1.0] #health,safety,art,research,engine
+	test.speed = .01
+	test.distance = 50.0
+	test.mission_year = 1000
+	test.fuel = 2500000
 	return test
