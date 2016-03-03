@@ -2,6 +2,9 @@ import csv
 import random
 
 from Gene import Gene
+from Enum import Enum
+
+Sex = Enum(['Male', 'Female'])
 
 class Crewmate(object):
     id_counter = 0
@@ -14,7 +17,7 @@ class Crewmate(object):
         self.adult = False
         self.name = "Unnamed"
         self.set_parents()
-        self.sex = -1
+        self.sex = None
         self.sterile = False
         self.job = "None"
         # self.training = False
@@ -44,10 +47,10 @@ class Crewmate(object):
         self.dad = dad
         self.mom = mom
 
-    def set_sex(self, value=None):
-        if value is None:
-            value = random.choice([0, 1])
-        self.sex = value
+    def set_sex(self, sex=None):
+        if sex is None:
+            sex = random.choice(Sex)
+        self.sex = sex
 
     def set_name(self, last=None, first=None):
         name_file = "names.txt"
@@ -60,12 +63,12 @@ class Crewmate(object):
                 if last is None:
                     last = random.choice(last_names)
                 if first is None:
-                    if self.sex == -1:
+                    if self.sex is None:
                         print "Tried to name while sex isn't set!"
                         return
-                    elif self.sex == 0:
+                    elif self.sex == Sex.Male:
                         first = random.choice(boys_names)
-                    elif self.sex == 1:
+                    elif self.sex == Sex.Female:
                         first = random.choice(girls_names)
 
         self.name = first+" "+last
@@ -74,9 +77,9 @@ class Crewmate(object):
         self.age += 1
         if self.age == 15:
             self.become_adult()
-        if self.sex == 1 and self.age == 45:
+        if self.sex == Sex.Female and self.age == 45:
             self.sterile = True
-        if self.sex == 0 and self.age == 65:
+        if self.sex == Sex.Male and self.age == 65:
             self.sterile = True
         # self.training = False
 
@@ -105,3 +108,6 @@ class Crewmate(object):
         self.inherit()
         for gene in self.genome:
             Gene.get_dominant(gene).birth_effects(self)
+
+    def breedable(self):
+        return self.adult and not self.sterile and not self.breeding

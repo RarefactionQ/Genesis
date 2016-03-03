@@ -1,6 +1,6 @@
 import random
 
-from Crewmate import Crewmate
+from Crewmate import Crewmate, Sex
 import UI
 
 class Ship(object):
@@ -83,27 +83,30 @@ class Ship(object):
             print UI.inline_print(mate)+" has died at age "+str(mate.age)
 
     def breed(self, mate):
-        if mate.sterile or mate.breeding or mate.adult != True:
+        if not mate.breedable():
             return
         for partner in self.crew:
-            if partner.sterile or partner.breeding or partner.adult != True: # no sterile or pregnant partners
+            # no sterile or pregnant partners
+            if not partner.breedable():
                 continue
             if partner.sex == mate.sex:
                 continue
-            if partner.crew_id == mate.mom.crew_id or partner.crew_id == mate.dad.crew_id: # no fathers or mothers
+            # no fathers or mothers
+            if partner.crew_id == mate.mom.crew_id or partner.crew_id == mate.dad.crew_id:
                 continue
             if mate.crew_id == partner.mom.crew_id or mate.crew_id == partner.dad.crew_id:
                 continue
             prob = .006
-            if mate.dad.crew_id == partner.dad.crew_id and mate.dad.crew_id != -1: # half siblings and full siblings
+            # half siblings and full siblings
+            if mate.dad.crew_id == partner.dad.crew_id:
                 prob *= .01
-            if mate.mom.crew_id == partner.mom.crew_id and mate.dad.crew_id != -1:
+            if mate.mom.crew_id == partner.mom.crew_id:
                 prob *= .01
             if random.random() < prob:
                 baby = Crewmate()
                 mate.breeding = True
                 partner.breeding = True
-                if mate.sex == 0:
+                if mate.sex == Sex.Male:
                     baby.be_born(mate, partner)
                 else:
                     baby.be_born(partner, mate)

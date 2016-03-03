@@ -77,11 +77,9 @@ def pick_list_crew(crew):
     while not (str(answer).isdigit() and ((int(answer) > -1) and (int(answer) <= len(crew)))):
         clear()
         print "0: Back"
-        i = 0
-        for member in crew:
-            i += 1
+        for i, member in enumerate(crew):
             s = ""
-            s += str(i)+": "
+            s += str(i+1)+": "
             s += "ID: "+str(member.crew_id)
             for _ in range(fields[0] - len(str(member.crew_id))):
                 s += " "

@@ -56,12 +56,12 @@ def test_sex():
     crew1 = Crewmate()
     crew2 = Crewmate()
 
-    crew1.set_sex(1)
-    if crew1.sex != 1:
+    crew1.set_sex(Sex.Female)
+    if crew1.sex != Sex.Female:
         print "Sex isn't able to be assigned manually"
 
     crew2.set_sex()
-    if crew2.sex != 0 and crew2.sex != 1:
+    if crew2.sex != Sex.Male and crew2.sex != Sex.Female:
         print "Sex isn't correctly assigned randomly"
         print crew2.sex
 
@@ -149,7 +149,7 @@ def test_generate_child():
         print "test_generate_child failed"
 
 def any_uninitialized(crew):
-    return crew.name == "Unnamed" or crew.dad is None or crew.mom is None or crew.sex == -1
+    return crew.name == "Unnamed" or crew.dad is None or crew.mom is None or crew.sex is None
 
 def test_assign_job():
     crew = Crewmate()
