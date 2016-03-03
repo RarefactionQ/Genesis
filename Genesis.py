@@ -1,5 +1,6 @@
 import sys
 
+from Enum import Enum
 import Initial
 import UI
 
@@ -16,15 +17,19 @@ def inspect_crew(s):
         return
     UI.full_info(s.crew[answer])
 
+Research = Enum(["Health", "Safety", "Art", "Research", "Engine"])
+
 def choose_research(s):
-    answer = UI.list_options(["Health", "Safety", "Art", "Research", "Engine"])
+    answer = UI.list_options(Research)
     s.priority = answer
+
+Jobs = Enum([UI.color_code("Doctor"), UI.color_code("Engineer"), UI.color_code("Researcher"), UI.color_code("Artist"), UI.color_code("Laborer")])
 
 def assign_job(s):
     mate = UI.pick_list_crew(s.crew)
     if mate == -1:
         return
-    answer = UI.list_options([UI.color_code("Doctor"), UI.color_code("Engineer"), UI.color_code("Researcher"), UI.color_code("Artist"), UI.color_code("Laborer")], UI.inline_print(s.crew[mate]))
+    answer = UI.list_options(Jobs, UI.inline_print(s.crew[mate]))
     if answer == 0:
         s.crew[mate].job = "Doctor"
     elif answer == 1:
