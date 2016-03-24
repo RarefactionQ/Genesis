@@ -78,9 +78,12 @@ class Ship(object):
 
     def kill(self, mate):
         if random.random() * (mate.age/20) > self.healthiness:
-            mate.alive = False
-            self.crew.remove(mate)
-            print UI.inline_print(mate)+" has died at age "+str(mate.age)
+            self.death(mate)
+
+    def death(self, mate):
+        mate.alive = False
+        self.crew.remove(mate)
+        print UI.inline_print(mate)+" has died at age "+str(mate.age)
 
     def breed(self, mate):
         if not mate.breedable():
