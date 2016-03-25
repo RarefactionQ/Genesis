@@ -7,6 +7,9 @@ I use [blessings](https://pypi.python.org/pypi/blessings) to make text pretty.
 
 To install:
 ~ pip install blessings
+
 ~ git clone git@github.com:RarefactionQ/Genesis.git
+
 ~ cd Genesis
+
 ~ python Genesis.py
