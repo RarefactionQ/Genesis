@@ -9,7 +9,6 @@ from Quest import Quest
 quest_list = []
 def main():
     genesis = Initial.test_ship()
-    Initial.import_quests()
     for mate in genesis.crew:
         mate.job = "Laborer"
     while not (lose(genesis) or win(genesis)):
@@ -33,8 +32,16 @@ def assign_job(s):
     if mate == -1:
         return
     colorful_jobs = map(UI.color_code, Jobs)
+    for quest in quest_list:
+        colorful_jobs.append(quest.description+" "+str(quest.quest_id))
     job = UI.list_options(colorful_jobs, UI.inline_print(s.crew[mate]))
-    s.crew[mate].job = Jobs[job]
+    if job < len(Jobs):
+        s.crew[mate].job = Jobs[job]
+    else:
+        print job
+        index = job - len(Jobs)
+        print str(len(Jobs))
+        s.crew[mate].job = quest_list[index].description+" "+str(quest_list[index].quest_id)
 
 def sterilize(s):
     answer = UI.pick_list_crew(s.crew)
@@ -56,10 +63,11 @@ def end_turn(s):
         quest.apply_work(s)
         if quest.succeed():
             quest.victory(s)
+            quest_list.remove(quest)
         else:
             quest.failure(s)
     new_quest = Initial.get_random_quest()
-    UI.clear()
+    UI.acknowledge()
     print new_quest.intro
     quest_list.append(new_quest)
     s.pass_turn()

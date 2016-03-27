@@ -32,6 +32,7 @@ class Quest(object):
                 mate.creativity += self.v_int
         elif self.v_type == "fuel":
             ship.fuel += self.v_int
+        print "victory"
 
     def failure(self,ship):
         if self.f_type == None:
@@ -49,12 +50,13 @@ class Quest(object):
             ship.fuel -= self.f_int
         elif self.f_type == "death":
             ship.death(random.choice(ship.crew))
+        print "failure"
 
     def succeed(self):
-        return self.work >= self.cost
+        return int(self.work) >= int(self.cost)
 
     def count_work(self,ship):
-        temp = 0
+        temp = self.work
         for mate in ship.crew:
             if mate.job == self.description+" "+str(self.quest_id):
                 if "emp" in self.type:

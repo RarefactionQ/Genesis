@@ -11,8 +11,6 @@ SOURCE_FILE_CREW = 'initial_crew.csv'
 SOURCE_FILE_GENES = 'initial_genes.csv'
 SOURCE_FILE_QUESTS = 'initial_quest.csv'
 
-quest_list = []
-
 def import_crew():
     temp = Ship()
     genetics = import_genetics()
@@ -68,25 +66,27 @@ def create_genome(crew, genetics):
         crew.genome.append([random.choice(temp), random.choice(temp)])
 
 def get_random_quest():
-    # return test_quest()
-    return random.choice(quest_list)
+    return import_a_quest()
 
-def import_quests():
+def import_a_quest():
     with open(SOURCE_FILE_QUESTS, 'rb') as csvfile:
         reader = csv.reader(csvfile)
-        for row in reader:
-            print row
-            quest = Quest()
-            quest.intro = row[0]
-            quest.description = row[1]
-            quest.v_type = row[2]
-            quest.v_int = int(row[3])
-            quest.f_type = row[4]
-            quest.f_int = int(row[5])
-            quest.outro = row[6]
-            quest.type = row[7]
-            quest.cost = row[8]
-            quest_list.append(quest)
+        length = int(reader.next()[0])
+        choice = random.randint(0,length-1)
+        for _ in range(choice):
+            reader.next()
+        row = reader.next()
+        quest = Quest()
+        quest.intro = row[0]
+        quest.description = row[1]
+        quest.v_type = row[2]
+        quest.v_int = int(row[3])
+        quest.f_type = row[4]
+        quest.f_int = int(row[5])
+        quest.outro = row[6]
+        quest.type = row[7]
+        quest.cost = row[8]
+        return quest
 
 def test_quest():
     quest = Quest()

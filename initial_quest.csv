@@ -1,1 +1,2 @@
-"Intro", "description","vtype",-1,"ftype",-1,"outro","type",-1
+1
+"The ship wasn't designed to operate for centuries. Air filtration systems are breaking down and need repair otherwise people will suffer from poor air quality", "Fixing air filters","None",0,"int",-1,"The air filters are fixed -- for now anyway","int",50
