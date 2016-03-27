@@ -2,6 +2,7 @@ import os
 
 from blessings import Terminal
 from Jobs import Jobs
+from Enum import Enum
 
 term = Terminal()
 

@@ -4,10 +4,14 @@ from Enum import Enum
 import Initial
 from Jobs import Jobs
 import UI
+from Quest import Quest
 
-
+quest_list = []
 def main():
     genesis = Initial.test_ship()
+    Initial.import_quests()
+    for mate in genesis.crew:
+        mate.job = "Laborer"
     while not (lose(genesis) or win(genesis)):
     # while True:
         decision_loop(genesis)
@@ -48,12 +52,25 @@ def euthanize(s):
     s.happiness_penalty += 500
 
 def end_turn(s):
+    for quest in quest_list:
+        quest.apply_work(s)
+        if quest.succeed():
+            quest.victory(s)
+        else:
+            quest.failure(s)
+    new_quest = Initial.get_random_quest()
+    UI.clear()
+    print new_quest.intro
+    quest_list.append(new_quest)
     s.pass_turn()
     UI.acknowledge()
 
 def decision_loop(s):
     main_loop = ["Inspect Crew", "Choose Research", "Assign Job", "Sterilize", "Euthanize", "End Turn"]
-    answer = UI.list_options(main_loop, header=UI.get_stats(s))
+    quest_status = ""
+    for quest in quest_list:
+        quest_status+="\n"+quest.description+", projected work: "+str(quest.count_work(s))+"/"+str(quest.cost)
+    answer = UI.list_options(main_loop, header=str(UI.get_stats(s)+quest_status))
     if answer == 0:
         inspect_crew(s)
     elif answer == 1:

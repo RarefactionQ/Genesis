@@ -5,9 +5,13 @@ import sys
 from Gene import Gene
 from Crewmate import Crewmate
 from Ship import Ship
+from Quest import Quest
 
 SOURCE_FILE_CREW = 'initial_crew.csv'
 SOURCE_FILE_GENES = 'initial_genes.csv'
+SOURCE_FILE_QUESTS = 'initial_quest.csv'
+
+quest_list = []
 
 def import_crew():
     temp = Ship()
@@ -63,7 +67,40 @@ def create_genome(crew, genetics):
             continue
         crew.genome.append([random.choice(temp), random.choice(temp)])
 
+def get_random_quest():
+    # return test_quest()
+    return random.choice(quest_list)
 
+def import_quests():
+    with open(SOURCE_FILE_QUESTS, 'rb') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            print row
+            quest = Quest()
+            quest.intro = row[0]
+            quest.description = row[1]
+            quest.v_type = row[2]
+            quest.v_int = int(row[3])
+            quest.f_type = row[4]
+            quest.f_int = int(row[5])
+            quest.outro = row[6]
+            quest.type = row[7]
+            quest.cost = row[8]
+            quest_list.append(quest)
+
+def test_quest():
+    quest = Quest()
+    quest.intro = "This is a testing Quest"
+    quest.description = "test"
+    quest.v_type = "emp"
+    quest.v_int = 1
+    quest.f_type = "emp"
+    quest.f_int = -1
+    quest.outro = "Finished Testing Quest"
+    quest.type = "emp"
+    quest.cost = 10
+    quest.work = 0
+    return quest
 
 def test_crew_infant():
     gene00 = Gene()
