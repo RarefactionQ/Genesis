@@ -48,22 +48,20 @@ def full_info(crew):
     # for gene in crew.genome:
     #     print str(gene[0].locus)+": "+str(gene[0].condition)+", "+str(gene[1].condition)
 
-def job_color(job):
-    if job == Jobs.Doctor:
-        return term.magenta
-    elif job == Jobs.Engineer:
-        return term.blue
-    elif job == Jobs.Researcher:
-        return term.green
-    elif job == Jobs.Artist:
-        return term.cyan
-    elif job == Jobs.Laborer:
-        return term.red_on_green
-    else:
-        return lambda x: x
-
 def color_code(job):
-    return job_color(job)(job)
+    if job == Jobs.Doctor:
+        colorize = term.magenta
+    elif job == Jobs.Engineer:
+        colorize = term.blue
+    elif job == Jobs.Researcher:
+        colorize = term.green
+    elif job == Jobs.Artist:
+        colorize = term.cyan
+    elif job == Jobs.Laborer:
+        colorize = term.red_on_green
+    else:
+        colorize = lambda x: x
+    return colorize(job)
 
 def pick_list_crew(crew):
     # clear()
