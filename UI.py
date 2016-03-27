@@ -91,7 +91,7 @@ def pick_list_crew(crew):
             s += " Age: "+str(member.age)+","
             for _ in range(fields[2] - len(str(member.age))):
                 s += " "
-            s += " Job: "+(member.job)
+            s += " Job: "+color_code(member.job)
             for _ in range(fields[3] - len(str(member.job))):
                 s += " "
             s += " ("+term.red(str(member.empathy))+", "+term.blue(str(member.intelligence))+", "+term.yellow(str(member.creativity))+")"
