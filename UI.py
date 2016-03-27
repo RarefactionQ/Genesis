@@ -65,9 +65,6 @@ def job_color(job):
 def color_code(job):
     return job_color(job)(job)
 
-def pretty_job(member):
-    return job_color(member)(member.job)
-
 def pick_list_crew(crew):
     # clear()
     fields = [0, 0, 0, 0]
