@@ -67,6 +67,7 @@ def end_turn(s):
         else:
             quest.failure(s)
     new_quest = Initial.get_random_quest()
+    new_quest.set_cost(s)
     UI.acknowledge()
     print new_quest.intro
     quest_list.append(new_quest)

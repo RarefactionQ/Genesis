@@ -1,2 +1,3 @@
-1
-"The ship wasn't designed to operate for centuries. Air filtration systems are breaking down and need repair otherwise people will suffer from poor air quality", "Fixing air filters","None",0,"int",-1,"The air filters are fixed -- for now anyway","int",50
+2
+The ship wasn't designed to operate for centuries. Air filtration systems are breaking down and need repair otherwise people will suffer from poor air quality, Fixing air filters - int,None,0,int,-1,The poor air quality starves the crew of oxygen in their sleep. -1 intelligence to all.,The air filters are fixed -- for now anyway,int,50,10
+The crew split into two rival factions which war for resources.,A House Divided - emp,emp,1,death,1,The rivalry boils over into a fight and a crew member is killed!, The rival factions make peace and learn a lesson about understanding. +1 Empathy,emp,10,20

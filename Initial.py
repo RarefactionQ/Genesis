@@ -43,9 +43,9 @@ def import_genetics():
             gene.locus = row[0]
             gene.condition = row[1]
             gene.condition_prob = row[2]
-            print str(gene.condition_prob)+" prob"
+            # print str(gene.condition_prob)+" prob"
             gene.congential = row[3].strip()
-            print str(gene.congential)+" congential"
+            # print str(gene.congential)+" congential"
             gene.dominant = row[4]
             gene.emp = row[5]
             gene.int = row[6]
@@ -73,19 +73,21 @@ def import_a_quest():
         reader = csv.reader(csvfile)
         length = int(reader.next()[0])
         choice = random.randint(0,length-1)
-        for _ in range(choice):
+        for _ in range(0,choice):
             reader.next()
         row = reader.next()
         quest = Quest()
-        quest.intro = row[0]
-        quest.description = row[1]
-        quest.v_type = row[2]
+        quest.intro = str(row[0])
+        quest.description = str(row[1])
+        quest.v_type = str(row[2])
         quest.v_int = int(row[3])
-        quest.f_type = row[4]
+        quest.f_type = str(row[4])
         quest.f_int = int(row[5])
-        quest.outro = row[6]
-        quest.type = row[7]
-        quest.cost = row[8]
+        quest.fail = str(row[6])
+        quest.outro = str(row[7])
+        quest.type = str(row[8])
+        quest.constant = int(row[9])
+        quest.variable = int(row[10])
         return quest
 
 def test_quest():
@@ -96,6 +98,7 @@ def test_quest():
     quest.v_int = 1
     quest.f_type = "emp"
     quest.f_int = -1
+    quest.fail = "Fail"
     quest.outro = "Finished Testing Quest"
     quest.type = "emp"
     quest.cost = 10

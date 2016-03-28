@@ -13,15 +13,19 @@ class Quest(object):
         self.v_int = 0
         self.f_type = ""
         self.f_int = 0
+        self.fail = ""
         self.outro = ""
         self.type = ""
         self.cost = 0
         self.work = 0
+        self.constant = 0
+        self.variable = 0
+
+    def set_cost(self,ship):
+        self.cost = self.constant + len(ship.crew)*self.variable
 
     def victory(self,ship):
-        if self.v_type == None:
-            return
-        elif self.v_type == "emp":
+        if self.v_type == "emp":
             for mate in ship.crew:
                 mate.empathy += self.v_int
         elif self.v_type == "int":
@@ -32,12 +36,10 @@ class Quest(object):
                 mate.creativity += self.v_int
         elif self.v_type == "fuel":
             ship.fuel += self.v_int
-        print "victory"
+        print self.outro
 
     def failure(self,ship):
-        if self.f_type == None:
-            return
-        elif self.f_type == "emp":
+        if self.f_type == "emp":
             for mate in ship.crew:
                 mate.empathy -= self.f_int
         elif self.f_type == "int":
@@ -50,10 +52,10 @@ class Quest(object):
             ship.fuel -= self.f_int
         elif self.f_type == "death":
             ship.death(random.choice(ship.crew))
-        print "failure"
+        print self.fail
 
     def succeed(self):
-        return int(self.work) >= int(self.cost)
+        return self.work >= self.cost
 
     def count_work(self,ship):
         temp = self.work
