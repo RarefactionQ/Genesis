@@ -38,9 +38,7 @@ def assign_job(s):
     if job < len(Jobs):
         s.crew[mate].job = Jobs[job]
     else:
-        print job
         index = job - len(Jobs)
-        print str(len(Jobs))
         s.crew[mate].job = quest_list[index].description+" "+str(quest_list[index].quest_id)
 
 def sterilize(s):
