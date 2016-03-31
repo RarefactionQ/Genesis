@@ -60,7 +60,7 @@ class Quest(object):
     def count_work(self,ship):
         temp = self.work
         for mate in ship.crew:
-            if mate.job == self.description+" "+str(self.quest_id):
+            if mate.job == self.description+" "+str(self.quest_id) and mate.adult:
                 if "emp" in self.type:
                     temp += mate.creativity
                 if "int" in self.type:

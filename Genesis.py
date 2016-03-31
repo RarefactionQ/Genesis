@@ -5,6 +5,7 @@ import Initial
 from Jobs import Jobs
 import UI
 from Quest import Quest
+import random
 
 quest_list = []
 def main():
@@ -64,11 +65,12 @@ def end_turn(s):
             quest_list.remove(quest)
         else:
             quest.failure(s)
-    new_quest = Initial.get_random_quest()
-    new_quest.set_cost(s)
-    UI.acknowledge()
-    print new_quest.intro
-    quest_list.append(new_quest)
+    if random.random() > 0.7:
+        new_quest = Initial.get_random_quest()
+        new_quest.set_cost(s)
+        UI.acknowledge()
+        print new_quest.intro
+        quest_list.append(new_quest)
     s.pass_turn()
     UI.acknowledge()
 
